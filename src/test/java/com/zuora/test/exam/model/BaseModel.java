@@ -28,6 +28,25 @@ public abstract class BaseModel {
         }
     }
 
+    /**
+     * Check the object and the other have the equal value on specified fields.
+     *
+     * @param other
+     * @param fieldNames
+     */
+    public <T extends BaseModel> void assertEqualsWith(T other, String... fieldNames) {
+        for (String fieldName : fieldNames) {
+            try {
+                Field field = this.getClass().getDeclaredField(fieldName);
+                field.setAccessible(true);
+                String msg = String.format("Values of field %s are not equal", fieldName);
+                Assert.assertEquals(msg, field.get(this), field.get(other));
+            } catch (NoSuchFieldException | SecurityException | IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
     private void checkMandatoryFieldNotNull(Field field, String msg) {
         try {
             String className = this.getClass().getSimpleName();

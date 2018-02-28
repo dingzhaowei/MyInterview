@@ -1,6 +1,5 @@
 package com.zuora.test.exam;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -54,6 +53,11 @@ public final class Config {
         return instance.resourceTimeout;
     }
 
+    public static Reader getResourceAsReader(String resName) throws IOException {
+        InputStream in = new UnicodeInputStream(getResourceAsStream(resName));
+        return new InputStreamReader(in, "UTF-8");
+    }
+
     private void initialize() {
         try (Reader reader = getResourceAsReader(CONFIG_FILE)) {
             props = new Properties();
@@ -91,15 +95,10 @@ public final class Config {
 
     private static Path getResource(String resName) {
         String userDir = System.getProperty("user.dir");
-        return Paths.get(userDir, File.separator, resName);
+        return Paths.get(userDir, resName.split("/"));
     }
 
     private static InputStream getResourceAsStream(String resName) throws IOException {
         return Files.newInputStream(getResource(resName));
-    }
-
-    private static Reader getResourceAsReader(String resName) throws IOException {
-        InputStream in = new UnicodeInputStream(getResourceAsStream(resName));
-        return new InputStreamReader(in, "UTF-8");
     }
 }

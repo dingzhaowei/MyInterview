@@ -2,6 +2,7 @@ package com.zuora.test.exam.model;
 
 import java.util.List;
 
+import com.google.gson.JsonObject;
 import com.zuora.test.exam.Mandatory;
 import com.zuora.test.exam.NumRange;
 
@@ -31,6 +32,8 @@ public class Deal extends BaseModel {
     private Long close_date;
 
     private Long created_time;
+
+    private JsonObject owner;
 
     private String owner_id;
 
@@ -110,6 +113,14 @@ public class Deal extends BaseModel {
 
     public void setCreated_time(Long created_time) {
         this.created_time = created_time;
+    }
+
+    public JsonObject getOwner() {
+        return owner;
+    }
+
+    public void setOwner(JsonObject owner) {
+        this.owner = owner;
     }
 
     public String getOwner_id() {
