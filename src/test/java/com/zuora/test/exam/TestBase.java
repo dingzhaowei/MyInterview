@@ -15,7 +15,7 @@ import org.jsoup.Jsoup;
 import com.google.gson.Gson;
 import com.zuora.test.exam.utils.Utils;
 
-public class TestBase {
+public abstract class TestBase {
 
     /**
      * Send the GET request, and deserialize the response to object of user
